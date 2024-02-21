@@ -1,0 +1,19 @@
+<svg 
+                  xmlns='https://www.w3.org/2000/svg' 
+                  xmlLang='en'
+                  xmlnsXlink='https://www.w3.org/1999/xlink'
+                  viewBox='0 0 500 500'>
+                    <title>circular text path</title>
+                    <defs>
+                      <path id="textcircle" d="m250,400 
+                      a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z" transform="rotate (12, 250, 250)" />
+                    </defs>
+                    <g className="textcircle">
+                      <text textLength={920}>
+                        <textPath 
+                          xlinkHref='#textcircle' 
+                          aria-label='cowork-and-travel'
+                          textLength={920}>cowork and travel | проект и команда |</textPath>
+                      </text>
+                    </g>
+</svg>

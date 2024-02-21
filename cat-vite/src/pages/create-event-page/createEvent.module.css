@@ -1,0 +1,9 @@
+.yellow {
+   background-color: #F9EAE1;
+   border-radius: 20px;
+   width: 50vw;
+}
+
+.container {
+   display: flex;
+}
