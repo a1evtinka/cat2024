@@ -2,8 +2,18 @@
    background-color: #F9EAE1;
    border-radius: 20px;
    width: 50vw;
+   padding: 24px;
 }
 
 .container {
    display: flex;
+}
+
+.add {
+   display: flex;
+   justify-content: center;
+}
+
+.add .ant-btn {
+   width: 250px;
 }

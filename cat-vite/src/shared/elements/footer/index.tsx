@@ -1,25 +1,32 @@
 import React, { ReactHTMLElement } from 'react'
-import './index.css'
+import FooterCss from './footer.module.css'
 import { Button } from 'antd';
+import { FormInstance } from 'antd/lib';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   okButtonName?: string;
   cancelButtonName?: string;
-  onOkClick: () => void;
+  formId?: string;
+  onOkClick?: () => void;
   onCancelClick: () => void;
 }
 
 export default function Footer({ 
     okButtonName = 'Сохранить', 
     cancelButtonName = "Отмена", 
+    formId,
     onOkClick, 
     onCancelClick}: Props) {
   return (
-    <div className='footer'>
-        <Button type="primary" htmlType="submit" onClick={onOkClick}>
+    <div className={FooterCss.footer}>
+        <Button type="primary" 
+          htmlType={formId ? "submit" : 'button'}
+          key='submit' 
+          onClick={formId ? undefined : onOkClick}
+          form={formId || ''}>
           {okButtonName}
         </Button>
-        <Button type="default" htmlType="submit" onClick={onCancelClick}>
+        <Button type="default" onClick={onCancelClick}>
           {cancelButtonName}
         </Button>
     </div>

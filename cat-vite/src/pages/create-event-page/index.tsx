@@ -17,7 +17,11 @@ import Footer from '../../shared/elements/footer';
 
 
   interface ICreateEventForm {
-    email: string;
+    eventTitle: string;
+    description: string;
+    limit: number;
+    rate: number;
+    dates: string[];
   }
 
   const options = countries.map((c) => ({
@@ -52,7 +56,12 @@ import Footer from '../../shared/elements/footer';
   const CreateEventPage: React.FC = () => {
     const [form] = Form.useForm();
   
-    const onFinish = (values: ICreateEventForm) => {
+    const onFinish = (formValues: any) => {
+      const rangeValue = formValues['range-picker'];
+      const values = {
+        ...formValues,
+        'dates': [rangeValue[0].format('YYYY-MM-DD'), rangeValue[1].format('YYYY-MM-DD')],
+      };
       console.log('Received values of form: ', values);
     };
   
@@ -63,6 +72,9 @@ import Footer from '../../shared/elements/footer';
       console.log('Received values of form: ');
     };
 
+    const rangeConfig = {
+      rules: [{ type: 'array' as const, required: true, message: 'Please select time!' }],
+    };
 
   
     return (
@@ -72,12 +84,9 @@ import Footer from '../../shared/elements/footer';
       <Form
         {...formItemLayout}
         form={form}
+        id="create-event"
         name="register"
         onFinish={onFinish}
-        initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86',
-        }}
         scrollToFirstError
       >
         <Form.Item
@@ -104,8 +113,12 @@ import Footer from '../../shared/elements/footer';
 
         </Form.Item>
 
-        <Form.Item label="Даты поездки">
-          <RangePicker />
+        <Form.Item 
+        label="Даты поездки"
+        name="range-picker" 
+        
+        {...rangeConfig}>
+      <RangePicker format="YYYY-MM-DD"/>
         </Form.Item>
 
         <Form.Item name="rate" label="Этап">
@@ -140,11 +153,19 @@ import Footer from '../../shared/elements/footer';
               <MinusCircleOutlined onClick={() => remove(name)} />
             </Space>
           ))}
+          <div className={CreateEventCss.add}>
           <Form.Item>
-            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+            <Button 
+            type="dashed" 
+            onClick={() => add()} 
+            block 
+            icon={<PlusOutlined />}
+            // style={{width: '250px'}}          
+            >
               Добавить вариант
             </Button>
           </Form.Item>
+          </div>
         </>
       )}
     </Form.List>
@@ -167,7 +188,9 @@ import Footer from '../../shared/elements/footer';
         <Footer
           onOkClick={handleSave}
           onCancelClick={saveAsDraft}
-          cancelButtonName='Сохранить как черновик'/>
+          cancelButtonName='Сохранить как черновик'
+          formId="create-event"
+          />          
       </Form>
 
         

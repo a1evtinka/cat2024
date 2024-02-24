@@ -51,6 +51,10 @@ import Footer from '../../shared/elements/footer';
   const { RangePicker } = DatePicker;
   const CreateEventPage: React.FC = () => {
     const [form] = Form.useForm();
+
+    const onFinish = (values: ICreateEventForm) => {
+      console.log('Received values of form: ', values);
+    };
   
     const handleSave = () => {
       console.log('Received values of form: ');
@@ -71,7 +75,7 @@ import Footer from '../../shared/elements/footer';
         {...formItemLayout}
         form={form}
         name="register"
-        // onFinish={onFinish}
+        onFinish={onFinish}
         initialValues={{
           residence: ['zhejiang', 'hangzhou', 'xihu'],
           prefix: '86',
@@ -163,9 +167,10 @@ import Footer from '../../shared/elements/footer';
           </Checkbox>
         </Form.Item>
         <Footer
-        onOkClick={handleSave}
-        onCancelClick={saveAsDraft}
-        cancelButtonName="Сохранить как черновик"
+          onOkClick={handleSave}
+          onCancelClick={saveAsDraft}
+          cancelButtonName="Сохранить как черновик"
+          
         />
       </Form>
 
